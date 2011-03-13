@@ -26,6 +26,11 @@ Basic Usage
 
 The [manual](http://www.duality.sukhbir.in/manual.html) should cover everything you need to know.
 
+Download stops at 99.99%
+------------------------
+
+If your download stops at 99.99%, this might be due a to a bug in `libtorrent`. The `RC_0_15` branch from the [SVN repository](http://libtorrent.svn.sourceforge.net/viewvc/libtorrent/) fixes this bug. Install that and this issue should be resolved.
+
 Authors
 -------
 
