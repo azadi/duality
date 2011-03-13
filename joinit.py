@@ -173,7 +173,7 @@ def main(torrent_file):
 
     # delete the config and part files
     print 'Delete part and config files for this torrent?'
-    ask = raw_input('yes [default] / no): ')
+    ask = raw_input('yes [default] / no: ')
     if ask in ('Y', 'y', 'yes', ''):
         for files_ in config_files:
             os.remove(files_)

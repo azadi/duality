@@ -22,16 +22,12 @@ def get_info(torrent_file):
     
     # size of all the files in the torrent in bytes
     total_size = torrent_info.total_size()
-
     # the number of files in the torrent
     file_len = len(torrent_info.files())
-
     # the number of bytes for each piece
     piece_len = torrent_info.piece_length()
-    
     # the total number of pieces
     num_pieces = torrent_info.num_pieces()
-
     # name of the torrent
     name = torrent_info.name()
 

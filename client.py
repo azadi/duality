@@ -51,10 +51,22 @@ def main(torrent_file):
                 ' downloaded.\nThere is NO support for multiple files.'
         sys.exit('Please use a torrent with a single file.')
 
-    print "\n'{0}'\n{1} pieces ({2} bytes / piece)".format(name, 
-                                                        num_pieces, piece_len)
+
+    down_size = (info.total_size() / (1024.0 * 1024.0))
+    print "\n'{0}'\n{1} pieces ({2:.2f} MiB)".format(name, num_pieces, down_size)
+
+    # ask the user to set the download rate
+    try:
+        download_rate = int(raw_input('Download rate limit (kB) '
+                                                    '[default is infinite]: ') or 0)
+        download_rate *= 1000
+    except ValueError:
+        download_rate = 0
+    if download_rate < 0:
+        download_rate = 0
+
     # the piece download range [lower, upper]
-    print 'Specify the download range: '
+    print '(Piece range)'
     while True:
         try:
             lower = int(raw_input('Lower (> 0): ') or 0)
@@ -92,7 +104,7 @@ def main(torrent_file):
     session = lt.session()
     # port range to listen
     session.listen_on(6881, 6891)
-    
+    session.set_download_rate_limit(download_rate)
     handle = session.add_torrent({'ti': info, 'save_path': '.'})
    
     # Set the priority of pieces outside the range of [lower, upper] to 0. 0 priority
@@ -115,9 +127,9 @@ def main(torrent_file):
         sys.stdout.flush()
         # handle.is_seed won't work as we are not downloading the complete
         # file(s). So we check with the progress explicitly.
-        time.sleep(1)
         if int(status.progress) == 1:
             break
+        time.sleep(1)
 
     sys.exit('Download completed!')
 
