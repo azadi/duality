@@ -128,7 +128,6 @@ def main(torrent_file):
     piece_to_hash = []
     # get the SHA-1 hashes from the parts
     for file_ in file_name:
-        total_parts = parts[file_]['upper'] - parts[file_]['lower']
         f = open(file_, 'rb')
         for count in range(parts[file_]['lower'], parts[file_]['upper']+1):         
             temp_hash = hashlib.sha1()
