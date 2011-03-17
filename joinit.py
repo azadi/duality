@@ -54,7 +54,7 @@ def main(torrent_file):
 
     # create a mapping of file name to a mapping of hash, lower and upper piece
     parts = {}
-    for file_ in config_files:
+    for file_ in config_files[:]:
         with open(file_) as f:
             for line in f:
                 config_info = line.split(',')
